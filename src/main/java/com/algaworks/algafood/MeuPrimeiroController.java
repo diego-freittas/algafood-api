@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class MeuPrimeiroController {
 
+	@Autowired
+	private AtivacaoClienteService ativacaoClienteService;
+
 	@GetMapping("/hello")
 	@ResponseBody
 	public String hello() {
@@ -18,8 +21,7 @@ public class MeuPrimeiroController {
 		return "Hello!!";
 	}
 
-	@Autowired
-	private AtivacaoClienteService ativacaoClienteService;
+
 
 
 	

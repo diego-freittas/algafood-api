@@ -1,25 +1,26 @@
 package com.algaworks.algafood.di.notificacao;
 
+import com.algaworks.algafood.di.modelo.Cliente;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
-import com.algaworks.algafood.di.modelo.Cliente;
 
-import java.util.Locale;
-
+@Qualifier("prioridade_normal")
 @Component
 public class NotificadorEmail implements Notificador {
 
     @Setter
-    private Boolean caixaAlta;
+    private Boolean caixaAlta=false;
     @Getter
     private String hostSevidorSmtp;
 
 
-    public NotificadorEmail (String hostSevidorSmtp){
+/*    public NotificadorEmail (String hostSevidorSmtp){
         this.hostSevidorSmtp = hostSevidorSmtp;
-    }
+    }*/
 
     @Override
     public void notificar(Cliente cliente, String mensagem) {
