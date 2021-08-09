@@ -10,7 +10,8 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-@Profile("prod") // Diz ao Spring que esse componente só vai ser iniciado no ambiente prod.
+//@Profile("prod") // Diz ao Spring que esse componente só vai ser iniciado no ambiente prod.
+// Também podemos criar arquivos properties para cada ambiente.
 @TipoDoNotificador(NivelUrgencia.URGENTE)
 @Component
 public class NotificadorEmail implements Notificador {
