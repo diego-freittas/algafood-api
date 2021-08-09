@@ -9,5 +9,5 @@ import java.lang.annotation.RetentionPolicy;
 public enum NivelUrgencia {
 
     URGENTE,
-    NORMAL
+    SEM_URGENCIA
 }
