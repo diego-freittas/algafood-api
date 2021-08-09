@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 
-@Qualifier("prioridade_urgente")
+@TipoDoNotificador(NivelUrgencia.NORMAL)
 @Component
 public class NotificadorSMS implements Notificador{
 
