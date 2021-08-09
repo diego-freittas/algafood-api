@@ -6,19 +6,16 @@ import com.algaworks.algafood.di.notificacao.TipoDoNotificador;
 import com.algaworks.algafood.di.service.ClienteAtivadoEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
-import org.springframework.stereotype.Component;
 
-@Component
-public class NotificacaoService {
+public class EmissaoNotaFiscalService {
 
-    @TipoDoNotificador(NivelUrgencia.URGENTE)
+    @TipoDoNotificador(NivelUrgencia.SEM_URGENCIA)
     @Autowired
     private Notificador notificador;
 
     @EventListener
     public void clienteAtivadoListener(ClienteAtivadoEvent event){
 
-        notificador.notificar(event.getCliente(), " Seu cadastro no sistema está ativo!");
-        System.out.println("Cliente " + event.getCliente().getNome()+" agora está ativo. ");
+        System.out.println("Foi emitida a nota fiscal do cliente: " + event.getCliente().getNome());
     }
 }
