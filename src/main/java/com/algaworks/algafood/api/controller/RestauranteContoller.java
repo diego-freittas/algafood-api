@@ -2,8 +2,8 @@ package com.algaworks.algafood.api.controller;
 
 import com.algaworks.algafood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
-import com.algaworks.algafood.domain.model.Cozinha;
-import com.algaworks.algafood.domain.service.CozinhaService;
+import com.algaworks.algafood.domain.model.Restaurante;
+import com.algaworks.algafood.domain.service.RestauranteSevice;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,25 +13,24 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/cozinhas")
-public class CozinhaController {
-
+@RequestMapping("/restaurantes")
+public class RestauranteContoller {
 
     @Autowired
-    private CozinhaService cozinhaService;
+    private RestauranteSevice restauranteSevice;
 
     //@GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE }) // "produces" serve para :Esta metodo só produz o formato especifico de conteudo
     @GetMapping
-    public List<Cozinha> listar() {
-        return cozinhaService.listar();
+    public List<Restaurante> listar() {
+        return restauranteSevice.listar();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Cozinha> buscar(@PathVariable Long id) {
-        Cozinha cozinha = cozinhaService.buscar(id);
+    public ResponseEntity<Restaurante> buscar(@PathVariable Long id) {
+        Restaurante restaurante = restauranteSevice.buscar(id);
 
-        if (cozinha != null) {
-            return ResponseEntity.ok(cozinha);
+        if (restaurante != null) {
+            return ResponseEntity.ok(restaurante);
         }
         return ResponseEntity.notFound().build();
         //return ResponseEntity.status(HttpStatus.OK).body(cozinha);
@@ -39,28 +38,28 @@ public class CozinhaController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Cozinha adicionar(@RequestBody Cozinha cozinha) {
-        return cozinhaService.salvar(cozinha);
+    public Restaurante adicionar(@RequestBody Restaurante restaurante) {
+        return restauranteSevice.salvar(restaurante);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Cozinha> atualizar(@RequestBody Cozinha cozinha,
-                                             @PathVariable Long id) {
-        Cozinha cozinhaAtual = cozinhaService.buscar(id);
+    public ResponseEntity<Restaurante> atualizar(@RequestBody Restaurante restaurante,
+                                                 @PathVariable Long id) {
+        Restaurante restauranteAtual = restauranteSevice.buscar(id);
         //cozinhaAtual.setNome(cozinha.getNome());
 
-        if (cozinhaAtual != null) {
-            BeanUtils.copyProperties(cozinha, cozinhaAtual, "id");
-            cozinhaService.salvar(cozinhaAtual);
-            return ResponseEntity.ok(cozinhaAtual);
+        if (restauranteAtual != null) {
+            BeanUtils.copyProperties(restaurante, restauranteAtual, "id");
+            restauranteSevice.salvar(restauranteAtual);
+            return ResponseEntity.ok(restauranteAtual);
         }
         return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Cozinha> remover(@PathVariable Long id) {
+    public ResponseEntity<Restaurante> remover(@PathVariable Long id) {
         try {
-            cozinhaService.excluir(id);
+            restauranteSevice.excluir(id);
             return ResponseEntity.noContent().build();
         } catch (EntidadeEmUsoException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();

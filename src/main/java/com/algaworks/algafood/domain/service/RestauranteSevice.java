@@ -2,8 +2,8 @@ package com.algaworks.algafood.domain.service;
 
 import com.algaworks.algafood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
-import com.algaworks.algafood.domain.model.Cozinha;
-import com.algaworks.algafood.domain.repository.CozinhaRepository;
+import com.algaworks.algafood.domain.model.Restaurante;
+import com.algaworks.algafood.domain.repository.RestauranteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -12,19 +12,19 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class CozinhaService {
+public class RestauranteSevice {
 
     @Autowired
-    private CozinhaRepository cozinhaRepository;
+    private RestauranteRepository restauranteRepository;
 
-    public Cozinha salvar(Cozinha cozinha) {
+    public Restaurante salvar(Restaurante restaurante) {
 
-        return cozinhaRepository.salvar(cozinha);
+        return restauranteRepository.salvar(restaurante);
     }
 
     public void excluir(Long id) {
         try {
-            cozinhaRepository.remover(id);
+            restauranteRepository.remover(id);
         } catch (EmptyResultDataAccessException ex) {
             throw new EntidadeNaoEncontradaException(String.format("Não foi encontrado uma cozinha com o código %d: ", id));
         } catch (DataIntegrityViolationException ex) {
@@ -33,11 +33,11 @@ public class CozinhaService {
         }
     }
 
-    public Cozinha buscar(Long id) {
-        return cozinhaRepository.buscar(id);
+    public Restaurante buscar(Long id) {
+        return restauranteRepository.buscar(id);
     }
 
-    public List<Cozinha> listar() {
-        return cozinhaRepository.listar();
+    public List<Restaurante> listar() {
+        return restauranteRepository.listar();
     }
 }
