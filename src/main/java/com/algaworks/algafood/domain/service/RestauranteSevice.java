@@ -12,6 +12,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RestauranteSevice {
@@ -24,31 +25,28 @@ public class RestauranteSevice {
 
     public Restaurante salvar(Restaurante restaurante) {
         Long cozinhaId = restaurante.getCozinha().getId();
-        Cozinha cozinha = cozinhaRepository.buscar(cozinhaId);
-        if (cozinha == null){
-            throw new EntidadeNaoEncontradaException(
-                    String.format("Não existe cadastro de cozinha com código %d", cozinhaId));
-        }
+        Cozinha cozinha = cozinhaRepository.findById(cozinhaId)
+                .orElseThrow(() ->new EntidadeNaoEncontradaException(
+                        String.format("Não existe cadastro de cozinha com código %d", cozinhaId)));
         restaurante.setCozinha(cozinha);
-        return restauranteRepository.salvar(restaurante);
+        return restauranteRepository.save(restaurante);
+    }
+
+    public  List<Restaurante> findAll(){
+      return   restauranteRepository.findAll();
+    }
+
+    public Optional<Restaurante> findById(Long id) {
+        return restauranteRepository.findById(id);
     }
 
     public void excluir(Long id) {
         try {
-            restauranteRepository.remover(id);
+            restauranteRepository.deleteById(id);
         } catch (EmptyResultDataAccessException ex) {
             throw new EntidadeNaoEncontradaException(String.format("Não foi encontrado uma cozinha com o código %d: ", id));
         } catch (DataIntegrityViolationException ex) {
             throw new EntidadeEmUsoException(String.format("Cozinha de código %d não pode ser removida, pois está em uso", id));
-
         }
-    }
-
-    public Restaurante buscar(Long id) {
-        return restauranteRepository.buscar(id);
-    }
-
-    public List<Restaurante> listar() {
-        return restauranteRepository.listar();
     }
 }
