@@ -11,4 +11,6 @@ import org.springframework.stereotype.Repository;
 public interface CozinhaRepository extends JpaRepository<Cozinha, Long> {
 
     Optional<Cozinha> findByNome(String nome);
+
+    List<Cozinha> findAllByNomeContaining(String nome);
 }

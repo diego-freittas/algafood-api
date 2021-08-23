@@ -45,6 +45,11 @@ public class CozinhaController {
         }
         return ResponseEntity.notFound().build();
     }
+    @GetMapping("/todas-buscar-nome/{nome}")
+    public List<Cozinha> buscarTodasPorNome(@PathVariable String nome) {
+        return cozinhaService.findyAllByNome(nome);
+
+    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
