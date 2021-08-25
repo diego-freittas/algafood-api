@@ -29,7 +29,7 @@ public class CozinhaController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Cozinha> buscar(@PathVariable Long id) {
-        Optional<Cozinha> cozinha = cozinhaService.findyById(id);
+        Optional<Cozinha> cozinha = cozinhaService.findById(id);
 
         if (cozinha.isPresent()) {
             return ResponseEntity.ok(cozinha.get());
@@ -38,32 +38,27 @@ public class CozinhaController {
     }
     @GetMapping("/buscar-nome/{nome}")
     public ResponseEntity<Cozinha> buscarPorNome(@PathVariable String nome) {
-        Optional<Cozinha> cozinha = cozinhaService.findyByNome(nome);
+        Optional<Cozinha> cozinha = cozinhaService.findByNome(nome);
 
         if (cozinha.isPresent()) {
             return ResponseEntity.ok(cozinha.get());
         }
         return ResponseEntity.notFound().build();
     }
-    @GetMapping("/todas-buscar-nome/{nome}")
-    public List<Cozinha> buscarTodasPorNome(@PathVariable String nome) {
-        return cozinhaService.findyAllByNome(nome);
-
-    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Cozinha adicionar(@RequestBody Cozinha cozinha) {
-        return cozinhaService.save(cozinha);
+        return cozinhaService.salvar(cozinha);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Cozinha> atualizar(@RequestBody Cozinha cozinha,
                                              @PathVariable Long id) {
-        Optional<Cozinha> cozinhaAtual = cozinhaService.findyById(id);
+        Optional<Cozinha> cozinhaAtual = cozinhaService.findById(id);
         if (cozinhaAtual != null) {
             BeanUtils.copyProperties(cozinha, cozinhaAtual.get(), "id");
-            Cozinha cozinhaSalva = cozinhaService.save(cozinhaAtual.get());
+            Cozinha cozinhaSalva = cozinhaService.salvar(cozinhaAtual.get());
             return ResponseEntity.ok(cozinhaSalva);
         }
         return ResponseEntity.notFound().build();

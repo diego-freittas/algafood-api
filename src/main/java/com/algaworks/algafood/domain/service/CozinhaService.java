@@ -18,33 +18,32 @@ public class CozinhaService {
     @Autowired
     private CozinhaRepository cozinhaRepository;
 
-    public Cozinha save(Cozinha cozinha) {
+    public Cozinha salvar(Cozinha cozinha) {
         return cozinhaRepository.save(cozinha);
     }
 
-    public void excluir(Long id) {
+    public void excluir(Long cozinhaId) {
         try {
-            cozinhaRepository.deleteById(id);
-        } catch (EmptyResultDataAccessException ex) {
-            throw new EntidadeNaoEncontradaException(String.format("Não foi encontrado uma cozinha com o código %d: ", id));
-        } catch (DataIntegrityViolationException ex) {
-            throw new EntidadeEmUsoException(String.format("Cozinha de código %d não pode ser removida, pois está em uso", id));
+            cozinhaRepository.deleteById(cozinhaId);
+
+        } catch (EmptyResultDataAccessException e) {
+            throw new EntidadeNaoEncontradaException(
+                    String.format("Não existe um cadastro de cozinha com código %d", cozinhaId));
+
+        } catch (DataIntegrityViolationException e) {
+            throw new EntidadeEmUsoException(
+                    String.format("Cozinha de código %d não pode ser removida, pois está em uso", cozinhaId));
         }
     }
 
-    public Optional<Cozinha> findyById(Long id) {
+    public Optional<Cozinha> findById(Long id){
         return cozinhaRepository.findById(id);
+    }
+    public Optional<Cozinha> findByNome(String nome){
+        return cozinhaRepository.findByNome(nome);
     }
 
     public List<Cozinha> findAll() {
         return cozinhaRepository.findAll();
-    }
-
-    public Optional<Cozinha> findyByNome(String nome) {
-        return  cozinhaRepository.findByNome(nome);
-    }
-
-    public List<Cozinha> findyAllByNome(String nome) {
-       return cozinhaRepository.findAllByNomeContaining(nome);
     }
 }
