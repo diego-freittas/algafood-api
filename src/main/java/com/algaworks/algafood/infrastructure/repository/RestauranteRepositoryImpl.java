@@ -12,6 +12,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -50,22 +51,29 @@ public class RestauranteRepositoryImpl {
     public List<Restaurante> find(String nome,
                                       BigDecimal taxaFreteInicial, BigDecimal taxaFreteFinal) {
 
-
         CriteriaBuilder builder = null;
         CriteriaQuery <Restaurante> criteria = builder.createQuery(Restaurante.class);
+
+        var predicates = new ArrayList<Predicate>();
+
+        // From nome tabela
         Root<Restaurante> root = criteria.from(Restaurante.class); // equivale a "from Restaurante"
 
-        Predicate nomePredicate = builder.like(root.get("nome"), "%" + nome + "%");
-        //maior ou igual
-        Predicate taxaInicialPredicate = builder.greaterThanOrEqualTo(root.get("taxaFrete"), taxaFreteInicial);
-        //menor ou igual
-        Predicate taxaFinalPredicate = builder.lessThanOrEqualTo(root.get("taxaFrete"), taxaFreteFinal);
-        criteria.where(nomePredicate, taxaInicialPredicate, taxaFinalPredicate);
+        if (StringUtils.hasText(nome)){
+            // like por nome
+            predicates.add(builder.like(root.get("nome"), "%" + nome + "%"));
+        }
+        if (StringUtils.hasText(nome)){
+            //maior ou igual
+            predicates.add(builder.greaterThanOrEqualTo(root.get("taxaFrete"), taxaFreteInicial));
+        }
+        if (StringUtils.hasText(nome)){
+            //menor ou igual
+            predicates.add(builder.lessThanOrEqualTo(root.get("taxaFrete"), taxaFreteFinal));
+        }
+        criteria.where(predicates.toArray(new Predicate[0]));
 
         return manager.createQuery(criteria).getResultList();
-
-
-
     }
 
 
