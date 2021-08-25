@@ -4,8 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
-import com.algaworks.algafood.infrastructure.repository.spec.RestauranteComFreteGratisSpec;
-import com.algaworks.algafood.infrastructure.repository.spec.RestauranteComNomeSemelhanteSpec;
+import com.algaworks.algafood.infrastructure.repository.spec.RestauranteSpecs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -76,9 +75,13 @@ public class TesteController {
 
     @GetMapping("/restaurantes/com-frete-gratis")
     public List<Restaurante> restaurantesComFreteGratis(String nome) {
-        var comFreteGratis = new RestauranteComFreteGratisSpec();
-        var comNomeSemelhante = new RestauranteComNomeSemelhanteSpec(nome);
-        return restauranteRepository.findAll(comFreteGratis.and(comNomeSemelhante));
+//        var comFreteGratis = new RestauranteComFreteGratisSpec();
+//        var comNomeSemelhante = new RestauranteComNomeSemelhanteSpec(nome);
+//        return restauranteRepository.findAll(comFreteGratis.and(comNomeSemelhante));
+
+        // AGORA UTILIZANDO A FABRICA DE SPECIFICATION
+        return restauranteRepository.findAll(RestauranteSpecs.comFreteGratis()
+                .and(RestauranteSpecs.comNomeSemelhante(nome)));
     }
 
 }
