@@ -15,6 +15,7 @@ import javax.persistence.Id;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 //@JsonRootName("cozinha") //customizar  a tag XML
 @Data
