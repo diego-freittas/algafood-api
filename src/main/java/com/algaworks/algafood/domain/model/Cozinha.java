@@ -17,6 +17,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+import java.util.ArrayList;
+import java.util.List;
+
 //@JsonRootName("cozinha") //customizar  a tag XML
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -30,8 +33,13 @@ public class Cozinha {
 
 
     //@JsonIgnore Ignora a propriedade na representação devolvida pela API
-    @JsonProperty(value = "titulo")//Mudando o nome do recurso na representação devolvida pela API
+    // @JsonProperty(value = "titulo")//Mudando o nome do recurso na representação devolvida pela API
     @Column(nullable = false)
     private String nome;
+
+    // uma Cozainha tem muitos Restaurantes
+    @JsonIgnore
+    @OneToMany(mappedBy = "cozinha")
+    private List<Restaurante> restaurantes = new ArrayList<>();
 
 }
