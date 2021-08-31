@@ -1,5 +1,6 @@
 package com.algaworks.algafood.domain.model;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,5 +40,13 @@ public class Restaurante {
     @JsonIgnore
     @Embedded
     private Endereco endereco;
+
+    @
+    @Column(nullable = false)
+    private LocalDateTime dataCadastro;
+
+
+    @Column(nullable = false)
+    private LocalDateTime dataAtualizacao;
 
 }
