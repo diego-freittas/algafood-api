@@ -9,6 +9,8 @@ import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -41,11 +43,13 @@ public class Restaurante {
     @Embedded
     private Endereco endereco;
 
-    @
+    @JsonIgnore
+    @CreationTimestamp
     @Column(nullable = false)
     private LocalDateTime dataCadastro;
 
-
+    @JsonIgnore
+    @UpdateTimestamp
     @Column(nullable = false)
     private LocalDateTime dataAtualizacao;
 

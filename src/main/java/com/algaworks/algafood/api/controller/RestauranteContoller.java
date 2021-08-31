@@ -58,7 +58,7 @@ public class RestauranteContoller {
                                                  @PathVariable Long id) {
         Restaurante restauranteAtual = restauranteSevice.findById(id).orElse(null);
         if (restauranteAtual != null) {
-            BeanUtils.copyProperties(restaurante, restauranteAtual, "id","formaPagamentos", "endereco");
+            BeanUtils.copyProperties(restaurante, restauranteAtual, "id","formaPagamentos", "endereco", "dataCadastro");
             restauranteSevice.salvar(restauranteAtual);
             return ResponseEntity.ok(restauranteAtual);
         }
