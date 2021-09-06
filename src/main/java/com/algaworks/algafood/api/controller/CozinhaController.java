@@ -29,13 +29,8 @@ public class CozinhaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Cozinha> buscar(@PathVariable Long id) {
-        Optional<Cozinha> cozinha = cozinhaService.findById(id);
-
-        if (cozinha.isPresent()) {
-            return ResponseEntity.ok(cozinha.get());
-        }
-        return ResponseEntity.notFound().build();
+    public Cozinha buscar(@PathVariable Long id) {
+        return cozinhaService.buscarOuFalhar(id);
     }
     @GetMapping("/buscar-nome/{nome}")
     public ResponseEntity<Cozinha> buscarPorNome(@PathVariable String nome) {
@@ -49,34 +44,16 @@ public class CozinhaController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Cozinha adicionar(
-            @RequestBody Cozinha cozinha) {
+    public Cozinha adicionar(@RequestBody Cozinha cozinha) {
         return cozinhaService.salvar(cozinha);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Cozinha> atualizar(@RequestBody Cozinha cozinha,
-                                             @PathVariable Long id) {
-        Optional<Cozinha> cozinhaAtual = cozinhaService.findById(id);
-        if (cozinhaAtual != null) {
-            BeanUtils.copyProperties(cozinha, cozinhaAtual.get(), "id");
-            Cozinha cozinhaSalva = cozinhaService.salvar(cozinhaAtual.get());
-            return ResponseEntity.ok(cozinhaSalva);
-        }
-        return ResponseEntity.notFound().build();
+    public Cozinha atualizar(@RequestBody Cozinha cozinha, @PathVariable Long id) {
+        Cozinha cozinhaAtual = cozinhaService.buscarOuFalhar(id);
+        BeanUtils.copyProperties(cozinha, cozinhaAtual, "id");
+        return cozinhaService.salvar(cozinhaAtual);
     }
-
-/*    @DeleteMapping("/{id}")
-    public ResponseEntity<Cozinha> remover(@PathVariable Long id) {
-        try {
-            cozinhaService.excluir(id);
-            return ResponseEntity.noContent().build();
-        } catch (EntidadeEmUsoException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
-        } catch (EntidadeNaoEncontradaException e) {
-            return ResponseEntity.notFound().build();
-        }
-    }*/
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)// Caso o método não gere um erro retornamos NO_CONTENT
