@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -80,7 +81,7 @@ public class CozinhaController {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)// Caso o método não gere um erro retornamos NO_CONTENT
     public void remover(@PathVariable Long id) {
-            cozinhaService.excluir(id);
+                cozinhaService.excluir(id);
     }
 
 }
