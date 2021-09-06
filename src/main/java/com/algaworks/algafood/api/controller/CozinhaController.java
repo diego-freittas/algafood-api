@@ -65,7 +65,7 @@ public class CozinhaController {
         return ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping("/{id}")
+/*    @DeleteMapping("/{id}")
     public ResponseEntity<Cozinha> remover(@PathVariable Long id) {
         try {
             cozinhaService.excluir(id);
@@ -75,6 +75,12 @@ public class CozinhaController {
         } catch (EntidadeNaoEncontradaException e) {
             return ResponseEntity.notFound().build();
         }
+    }*/
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)// Caso o método não gere um erro retornamos NO_CONTENT
+    public void remover(@PathVariable Long id) {
+            cozinhaService.excluir(id);
     }
 
 }
