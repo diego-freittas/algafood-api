@@ -1,8 +1,6 @@
 package com.algaworks.algafood.api.controller;
 
-import com.algaworks.algafood.domain.exception.EntidadeEmUsoException;
-import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
-import com.algaworks.algafood.domain.exception.NegocioException;
+import com.algaworks.algafood.domain.exception.*;
 import com.algaworks.algafood.domain.model.Cozinha;
 import com.algaworks.algafood.domain.model.Restaurante;
 import com.algaworks.algafood.domain.service.RestauranteSevice;
@@ -42,7 +40,7 @@ public class RestauranteContoller {
     public Restaurante adicionar(@RequestBody Restaurante restaurante) {
         try {
             return restauranteSevice.salvar(restaurante);
-        }catch (EntidadeNaoEncontradaException e){
+        }catch (CozinhaNaoEncontradaException e){
             throw new NegocioException(e.getMessage());
         }
 
@@ -56,8 +54,8 @@ public class RestauranteContoller {
 
         try {
             return restauranteSevice.salvar(restauranteAtual);
-        }catch (EntidadeNaoEncontradaException e){
-            throw new NegocioException(e.getMessage());
+        }catch (CozinhaNaoEncontradaException e){
+            throw new NegocioException(e.getMessage(),e);
         }
     }
     @PatchMapping("/{id}")

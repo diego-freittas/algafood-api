@@ -2,6 +2,7 @@ package com.algaworks.algafood.domain.service;
 
 import com.algaworks.algafood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
+import com.algaworks.algafood.domain.exception.RestauranteNaoEncontradoException;
 import com.algaworks.algafood.domain.model.Cozinha;
 import com.algaworks.algafood.domain.model.Restaurante;
 import com.algaworks.algafood.domain.repository.CozinhaRepository;
@@ -43,7 +44,7 @@ public class RestauranteSevice {
         try {
             restauranteRepository.deleteById(id);
         } catch (EmptyResultDataAccessException ex) {
-            throw new EntidadeNaoEncontradaException(String.format(MSG_RESTAURANTE_NAO_ENCONTRADO, id));
+            throw new RestauranteNaoEncontradoException(id);
         } catch (DataIntegrityViolationException ex) {
             throw new EntidadeEmUsoException(String.format(MSG_RESTAURANTE_EM_USO, id));
         }
@@ -51,7 +52,7 @@ public class RestauranteSevice {
 
     public Restaurante buscarOuFalhar(Long id){
         return  restauranteRepository.findById(id)
-                .orElseThrow(()->new EntidadeNaoEncontradaException(String.format(MSG_RESTAURANTE_NAO_ENCONTRADO,id)));
+                .orElseThrow(()->new RestauranteNaoEncontradoException(id));
     }
 
 }

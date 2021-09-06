@@ -1,8 +1,7 @@
 package com.algaworks.algafood.domain.service;
 
 import com.algaworks.algafood.domain.exception.EntidadeEmUsoException;
-import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
-import com.algaworks.algafood.domain.exception.EstadoNaoEncontradaException;
+import com.algaworks.algafood.domain.exception.EstadoNaoEncontradoException;
 import com.algaworks.algafood.domain.model.Estado;
 import com.algaworks.algafood.domain.repository.EstadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,7 @@ public class EstadoService {
             estadoRepository.deleteById(id);
 
         } catch (EmptyResultDataAccessException e) {
-            throw new EstadoNaoEncontradaException(id);
+            throw new EstadoNaoEncontradoException(id);
 
         } catch (DataIntegrityViolationException e) {
             throw new EntidadeEmUsoException(
@@ -35,6 +34,6 @@ public class EstadoService {
 
     public Estado buscarOuFalhar(Long estadoId) {
         return estadoRepository.findById(estadoId)
-                .orElseThrow(()-> new EstadoNaoEncontradaException(estadoId));
+                .orElseThrow(()-> new EstadoNaoEncontradoException(estadoId));
     }
 }
