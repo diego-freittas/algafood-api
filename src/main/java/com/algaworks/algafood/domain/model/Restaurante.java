@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
@@ -23,10 +23,13 @@ public class Restaurante {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    //@NotNull
+    @NotEmpty
+    @NotBlank
     @Column(nullable = false)
     private String nome;
 
+    @PositiveOrZero()
     @Column(name = "taxa_frete", nullable = false)
     private BigDecimal taxaFrete;
 
