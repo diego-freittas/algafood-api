@@ -38,19 +38,21 @@ public class EstadoController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Estado adicionar(@RequestBody Estado estado) {
+
         return estadoService.salvar(estado);
     }
 
     @PutMapping("/{estadoId}")
     public Estado atualizar(@PathVariable Long estadoId,
-                                            @RequestBody Estado estado) {
+                            @RequestBody Estado estado) {
         Estado estadoAtual = estadoService.buscarOuFalhar(estadoId);
-            BeanUtils.copyProperties(estado, estadoAtual, "id");
-            return estadoService.salvar(estadoAtual);
-        }
+        BeanUtils.copyProperties(estado, estadoAtual, "id");
+        return estadoService.salvar(estadoAtual);
+    }
 
     @DeleteMapping("/{estadoId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void remover(@PathVariable Long estadoId) {
-            estadoService.excluir(estadoId);
+        estadoService.excluir(estadoId);
     }
 }
