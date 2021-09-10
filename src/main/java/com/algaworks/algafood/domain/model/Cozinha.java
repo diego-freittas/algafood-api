@@ -1,5 +1,6 @@
 package com.algaworks.algafood.domain.model;
 
+import com.algaworks.algafood.Groups;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
@@ -12,7 +13,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -27,8 +30,8 @@ import java.util.List;
 @Entity
 public class Cozinha {
 
+    @NotNull(groups = Groups.CozinhaId.class)
     @EqualsAndHashCode.Include
-    @NotEmpty
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -36,6 +39,7 @@ public class Cozinha {
 
     //@JsonIgnore Ignora a propriedade na representação devolvida pela API
     // @JsonProperty(value = "titulo")//Mudando o nome do recurso na representação devolvida pela API
+    @NotBlank
     @Column(nullable = false)
     private String nome;
 

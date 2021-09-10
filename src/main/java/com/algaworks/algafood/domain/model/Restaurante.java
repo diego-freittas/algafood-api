@@ -7,7 +7,10 @@ import java.util.List;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
+import javax.validation.groups.ConvertGroup;
+import javax.validation.groups.Default;
 
+import com.algaworks.algafood.Groups;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -25,7 +28,7 @@ public class Restaurante {
     private Long id;
 
     //@NotNull
-    @NotEmpty
+    //@NotEmpty
     @NotBlank
     @Column(nullable = false)
     private String nome;
@@ -35,6 +38,7 @@ public class Restaurante {
     private BigDecimal taxaFrete;
 
     @Valid
+    @ConvertGroup(from = Default.class, to = Groups.CozinhaId.class)
     @ManyToOne
     @JoinColumn(name = "cozinha_id", nullable = false)
     private Cozinha cozinha;
