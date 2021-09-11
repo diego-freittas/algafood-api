@@ -1,6 +1,10 @@
 package com.algaworks.algafood.domain.model;
 
+<<<<<<< HEAD
 import com.algaworks.algafood.core.validation.Groups;
+=======
+import com.algaworks.algafood.Groups;
+>>>>>>> origin/developer
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
@@ -12,6 +16,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
+<<<<<<< HEAD
+=======
+import javax.validation.constraints.NotEmpty;
+>>>>>>> origin/developer
 import javax.validation.constraints.NotNull;
 
 import lombok.EqualsAndHashCode;
