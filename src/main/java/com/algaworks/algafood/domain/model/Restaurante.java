@@ -10,11 +10,7 @@ import javax.validation.constraints.*;
 import javax.validation.groups.ConvertGroup;
 import javax.validation.groups.Default;
 
-<<<<<<< HEAD
 import com.algaworks.algafood.core.validation.Groups;
-=======
-import com.algaworks.algafood.Groups;
->>>>>>> origin/developer
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

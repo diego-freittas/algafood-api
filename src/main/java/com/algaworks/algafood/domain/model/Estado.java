@@ -11,7 +11,6 @@ import javax.validation.constraints.NotNull;
 <<<<<<< HEAD
 import com.algaworks.algafood.core.validation.Groups;
 =======
-import com.algaworks.algafood.Groups;
 >>>>>>> origin/developer
 import lombok.Data;
 import lombok.EqualsAndHashCode;
