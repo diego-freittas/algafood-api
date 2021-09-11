@@ -1,9 +1,10 @@
 package com.algaworks.algafood.domain.model;
 
-import com.algaworks.algafood.Groups;
+<<<<<<< HEAD
+import com.algaworks.algafood.core.validation.Groups;
+=======
+>>>>>>> origin/developer
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonRootName;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -14,12 +15,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
+<<<<<<< HEAD
+=======
+>>>>>>> origin/developer
 import javax.validation.constraints.NotNull;
 
-import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import java.util.ArrayList;
 import java.util.List;

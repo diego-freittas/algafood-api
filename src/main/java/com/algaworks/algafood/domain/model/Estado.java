@@ -8,7 +8,10 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import com.algaworks.algafood.Groups;
+<<<<<<< HEAD
+import com.algaworks.algafood.core.validation.Groups;
+=======
+>>>>>>> origin/developer
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
