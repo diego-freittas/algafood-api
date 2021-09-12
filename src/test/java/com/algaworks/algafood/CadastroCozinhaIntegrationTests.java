@@ -1,6 +1,8 @@
 package com.algaworks.algafood;
 
 
+import com.algaworks.algafood.domain.exception.CozinhaNaoEncontradaException;
+import com.algaworks.algafood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.algafood.domain.model.Cozinha;
 import com.algaworks.algafood.domain.service.CozinhaService;
 import org.hibernate.exception.ConstraintViolationException;
@@ -28,12 +30,14 @@ public class CadastroCozinhaIntegrationTests {
         //Ação
         novaCozinha = cozinhaService.salvar(novaCozinha);
         //Validação
-        org.assertj.core.api.Assertions.assertThat(novaCozinha).isNotNull();
-        org.assertj.core.api.Assertions.assertThat(novaCozinha.getId()).isNotNull();
+        //org.assertj.core.api.Assertions.assertThat(novaCozinha).isNotNull();
+        //org.assertj.core.api.Assertions.assertThat(novaCozinha.getId()).isNotNull();
+        Assertions.assertNotNull(novaCozinha.getId());
+        Assertions.assertNotNull(novaCozinha.getId());
     }
 
     @Test
-    public void deveFalharAoCadastrarCozinha_QuandoSemNome(){
+    public void deveFalhar_QuandoCadastrarCozinhaSemNome(){
         //Cenário
         Cozinha novaCozinha = new Cozinha();
         novaCozinha.setNome(null);
@@ -44,5 +48,24 @@ public class CadastroCozinhaIntegrationTests {
                     cozinhaService.salvar(novaCozinha);
                 });
     }
+    @Test
+    //@Test(expected = EntidadeEmUsoException.class)
+    public void deveFalhar_QuandoExcluirCozinhaEmUso(){
+        EntidadeEmUsoException erroEsperado =
+                Assertions.assertThrows(EntidadeEmUsoException.class, () -> {
+                    cozinhaService.excluir(1L);
+                });
+
+    }
+
+    @Test
+    public void deveFalhar_QuandoExcluirCozinhaInexistente(){
+
+        CozinhaNaoEncontradaException erroEsperado =
+                Assertions.assertThrows(CozinhaNaoEncontradaException.class, () -> {
+                    cozinhaService.excluir(1000L);
+                });
+    }
+
 
 }
