@@ -1,26 +1,23 @@
 package com.algaworks.algafood.domain.model;
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.persistence.*;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
-import javax.validation.groups.ConvertGroup;
-import javax.validation.groups.Default;
-
-<<<<<<< HEAD
 import com.algaworks.algafood.Groups;
-=======
-import com.algaworks.algafood.core.validation.Groups;
 import com.algaworks.algafood.core.validation.TaxaFrete;
->>>>>>> 4351c6a0cb1edfc08e16f4e6681d22d41c04964e
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
+import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.groups.ConvertGroup;
+import javax.validation.groups.Default;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -32,31 +29,18 @@ public class Restaurante {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //@NotNull
-    //@NotEmpty
-<<<<<<< HEAD
-    @NotBlank(groups = Groups.CozinhaId.class)
-    @Column(nullable = false)
-    private String nome;
-
-    @PositiveOrZero(groups = Groups.CozinhaId.class)
-=======
     @NotBlank
     @Column(nullable = false)
     private String nome;
 
     //@PositiveOrZero()
     @TaxaFrete
->>>>>>> 4351c6a0cb1edfc08e16f4e6681d22d41c04964e
     @Column(name = "taxa_frete", nullable = false)
     private BigDecimal taxaFrete;
 
     @Valid
     @ConvertGroup(from = Default.class, to = Groups.CozinhaId.class)
-<<<<<<< HEAD
     @NotNull(groups = Groups.CozinhaId.class)
-=======
->>>>>>> 4351c6a0cb1edfc08e16f4e6681d22d41c04964e
     @ManyToOne
     @JoinColumn(name = "cozinha_id", nullable = false)
     private Cozinha cozinha;
