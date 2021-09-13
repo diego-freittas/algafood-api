@@ -1,6 +1,7 @@
 package com.algaworks.algafood.domain.model;
 
 import com.algaworks.algafood.Groups;
+import com.algaworks.algafood.core.validation.Multiplo;
 import com.algaworks.algafood.core.validation.TaxaFrete;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
@@ -34,6 +35,7 @@ public class Restaurante {
 
     //@PositiveOrZero()
     @TaxaFrete
+    @Multiplo(numero = 0)
     @Column(name = "taxa_frete", nullable = false)
     private BigDecimal taxaFrete;
 
