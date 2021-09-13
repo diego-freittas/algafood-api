@@ -6,14 +6,8 @@ import com.algaworks.algafood.domain.exception.EstadoNaoEncontradoException;
 import com.algaworks.algafood.domain.exception.NegocioException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import com.algaworks.algafood.domain.model.Cidade;
 import com.algaworks.algafood.domain.service.CidadeService;
@@ -38,6 +32,10 @@ public class CidadeController {
     }
 
     @PostMapping
+<<<<<<< HEAD
+=======
+    @ResponseStatus(HttpStatus.CREATED)
+>>>>>>> 4351c6a0cb1edfc08e16f4e6681d22d41c04964e
     public Cidade adicionar(@RequestBody @Valid Cidade cidade) {
         try {
             return cidadeService.salvar(cidade);
@@ -59,6 +57,7 @@ public class CidadeController {
     }
 
     @DeleteMapping("/{cidadeId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void remover(@PathVariable Long cidadeId) {
         cidadeService.excluir(cidadeId);
     }

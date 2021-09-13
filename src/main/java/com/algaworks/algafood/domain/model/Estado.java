@@ -7,8 +7,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+<<<<<<< HEAD
 
 import com.algaworks.algafood.Groups;
+=======
+import com.algaworks.algafood.core.validation.Groups;
+>>>>>>> 4351c6a0cb1edfc08e16f4e6681d22d41c04964e
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

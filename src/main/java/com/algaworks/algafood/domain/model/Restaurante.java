@@ -10,7 +10,12 @@ import javax.validation.constraints.*;
 import javax.validation.groups.ConvertGroup;
 import javax.validation.groups.Default;
 
+<<<<<<< HEAD
 import com.algaworks.algafood.Groups;
+=======
+import com.algaworks.algafood.core.validation.Groups;
+import com.algaworks.algafood.core.validation.TaxaFrete;
+>>>>>>> 4351c6a0cb1edfc08e16f4e6681d22d41c04964e
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -29,17 +34,29 @@ public class Restaurante {
 
     //@NotNull
     //@NotEmpty
+<<<<<<< HEAD
     @NotBlank(groups = Groups.CozinhaId.class)
     @Column(nullable = false)
     private String nome;
 
     @PositiveOrZero(groups = Groups.CozinhaId.class)
+=======
+    @NotBlank
+    @Column(nullable = false)
+    private String nome;
+
+    //@PositiveOrZero()
+    @TaxaFrete
+>>>>>>> 4351c6a0cb1edfc08e16f4e6681d22d41c04964e
     @Column(name = "taxa_frete", nullable = false)
     private BigDecimal taxaFrete;
 
     @Valid
     @ConvertGroup(from = Default.class, to = Groups.CozinhaId.class)
+<<<<<<< HEAD
     @NotNull(groups = Groups.CozinhaId.class)
+=======
+>>>>>>> 4351c6a0cb1edfc08e16f4e6681d22d41c04964e
     @ManyToOne
     @JoinColumn(name = "cozinha_id", nullable = false)
     private Cozinha cozinha;

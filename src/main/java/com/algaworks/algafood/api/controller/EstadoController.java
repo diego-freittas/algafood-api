@@ -38,14 +38,22 @@ public class EstadoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+<<<<<<< HEAD
     public Estado adicionar(@RequestBody @Valid Estado estado) {
+=======
+    public Estado adicionar(@RequestBody  @Valid Estado estado) {
+>>>>>>> 4351c6a0cb1edfc08e16f4e6681d22d41c04964e
 
         return estadoService.salvar(estado);
     }
 
     @PutMapping("/{estadoId}")
     public Estado atualizar(@PathVariable Long estadoId,
+<<<<<<< HEAD
                             @RequestBody @Valid Estado estado) {
+=======
+                            @RequestBody  @Valid Estado estado) {
+>>>>>>> 4351c6a0cb1edfc08e16f4e6681d22d41c04964e
         Estado estadoAtual = estadoService.buscarOuFalhar(estadoId);
         BeanUtils.copyProperties(estado, estadoAtual, "id");
         return estadoService.salvar(estadoAtual);
