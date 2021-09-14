@@ -6,8 +6,9 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import javax.validation.ValidationException;
 import java.math.BigDecimal;
+import java.util.Locale;
 
-public class ValorZeroIncluiDescricaoValidator implements ConstraintValidator<Multiplo, Object> {
+public class ValorZeroIncluiDescricaoValidator implements ConstraintValidator<ValorZeroIncluiDescricao, Object> {
 
     private String valorField;
     private String descricaoField;
@@ -27,6 +28,14 @@ public class ValorZeroIncluiDescricaoValidator implements ConstraintValidator<Mu
         try {
             BigDecimal valor = (BigDecimal) BeanUtils.getPropertyDescriptor(objetoValidacao.getClass(), valorField)
                     .getReadMethod().invoke(objetoValidacao);
+
+            String descricao = (String) BeanUtils.getPropertyDescriptor(objetoValidacao.getClass(), descricaoField)
+                    .getReadMethod().invoke(objetoValidacao);
+
+            if(valor != null && BigDecimal.ZERO.compareTo(valor) == 0
+            && descricao != null ){
+                valido = descricao.toLowerCase(Locale.ROOT).contains(this.descricaoObrigatoria.toLowerCase());
+            }
 
         } catch (Exception e) {
             throw new ValidationException(e);

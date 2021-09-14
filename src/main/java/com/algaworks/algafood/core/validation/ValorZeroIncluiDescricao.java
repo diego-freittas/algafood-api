@@ -12,10 +12,10 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Target({TYPE})
 @Retention(RUNTIME)
-@Constraint(validatedBy = { })
+@Constraint(validatedBy = {ValorZeroIncluiDescricaoValidator.class })
 public @interface ValorZeroIncluiDescricao {
 
-    String message() default "XXXX";
+    String message() default "Descrição obrigatória inválida";
 
     Class<?>[] groups() default { };
 
