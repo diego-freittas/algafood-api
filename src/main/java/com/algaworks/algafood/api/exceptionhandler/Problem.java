@@ -21,12 +21,12 @@ public class Problem {
     private String title;
     private String detail;
     private String userMessage;
-    private List<Field> fields;
+    private List<Object> objects;
 
 
     @Getter
     @Builder
-    static class Field{
+    static class Object{
         private String nome;
         private String userMessage;
     }
