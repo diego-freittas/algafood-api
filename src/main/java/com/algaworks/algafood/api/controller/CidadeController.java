@@ -32,10 +32,7 @@ public class CidadeController {
     }
 
     @PostMapping
-<<<<<<< HEAD
-=======
     @ResponseStatus(HttpStatus.CREATED)
->>>>>>> 4351c6a0cb1edfc08e16f4e6681d22d41c04964e
     public Cidade adicionar(@RequestBody @Valid Cidade cidade) {
         try {
             return cidadeService.salvar(cidade);

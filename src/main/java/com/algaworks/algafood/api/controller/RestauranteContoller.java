@@ -53,11 +53,7 @@ public class RestauranteContoller {
 
     @PutMapping("/{id}")
     public Restaurante atualizar(@PathVariable Long restauranteId,
-<<<<<<< HEAD
-                                 @RequestBody @Valid Restaurante restaurante) {
-=======
                                  @RequestBody  @Valid Restaurante restaurante) {
->>>>>>> 4351c6a0cb1edfc08e16f4e6681d22d41c04964e
         try {
             Restaurante restauranteAtual = restauranteSevice.buscarOuFalhar(restauranteId);
 
