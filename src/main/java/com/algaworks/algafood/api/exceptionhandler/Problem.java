@@ -27,7 +27,7 @@ public class Problem {
     @Getter
     @Builder
     static class Object{
-        private String nome;
+        private String name;
         private String userMessage;
     }
 

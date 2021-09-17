@@ -1,6 +1,6 @@
 package com.algaworks.algafood.infrastructure.repository;
 
-import com.algaworks.algafood.domain.repository.CustomJpaReoisutiry;
+import com.algaworks.algafood.domain.repository.CustomJpaRepository;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 
@@ -8,7 +8,7 @@ import javax.persistence.EntityManager;
 import java.util.Optional;
 
 public class CustonJpaRepositoryImpl<T, Id> extends SimpleJpaRepository<T, Id>
-        implements CustomJpaReoisutiry<T, Id> {
+        implements CustomJpaRepository<T, Id> {
 
     private EntityManager manager;
 

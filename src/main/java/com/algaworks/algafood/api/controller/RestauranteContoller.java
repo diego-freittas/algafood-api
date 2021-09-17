@@ -1,6 +1,7 @@
 package com.algaworks.algafood.api.controller;
 
 import com.algaworks.algafood.Groups;
+import com.algaworks.algafood.core.validation.ValidacaoException;
 import com.algaworks.algafood.domain.exception.*;
 import com.algaworks.algafood.domain.model.Restaurante;
 import com.algaworks.algafood.domain.service.RestauranteSevice;
@@ -13,11 +14,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.util.ReflectionUtils;
+import org.springframework.validation.BeanPropertyBindingResult;
+import org.springframework.validation.SmartValidator;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import javax.validation.ValidationException;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +32,9 @@ public class RestauranteContoller {
 
     @Autowired
     private RestauranteSevice restauranteSevice;
+
+    @Autowired
+    private SmartValidator validator;
 
 
     //@GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE }) // "produces" serve para :Esta metodo só produz o formato especifico de conteudo
@@ -69,11 +76,22 @@ public class RestauranteContoller {
     @PatchMapping("/{id}")
     public Restaurante atualizarParcial(@PathVariable Long restauranteId,
                                         @RequestBody Map<String, Object> campos, HttpServletRequest request) {
-        Restaurante restauranteAtual = restauranteSevice.buscarOuFalhar(restauranteId);
+        Restaurante restauranteDoBancoDeDados = restauranteSevice.buscarOuFalhar(restauranteId);
 
-        merge(campos, restauranteAtual, request);
+        merge(campos, restauranteDoBancoDeDados, request);
+        validate(restauranteDoBancoDeDados, "restaurante");
 
-        return atualizar(restauranteId, restauranteAtual);
+        return atualizar(restauranteId, restauranteDoBancoDeDados);
+
+    }
+
+    private void validate(Restaurante restaurante, String objectName) {
+        BeanPropertyBindingResult bindingResult = new BeanPropertyBindingResult(restaurante, objectName);
+        validator.validate(restaurante, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            throw new ValidacaoException(bindingResult);
+        }
     }
 
     @DeleteMapping("/{id}")
