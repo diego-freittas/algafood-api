@@ -16,7 +16,7 @@ import javax.validation.ConstraintViolationException;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class CadastroCozinhaIntegrationTests {
+public class CadastroCozinhaIT {
 
     @Autowired
     private CozinhaService cozinhaService;
