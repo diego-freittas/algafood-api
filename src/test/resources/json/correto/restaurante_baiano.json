@@ -1,0 +1,7 @@
+{
+  "nome": "Restaurante do arquivo JSON",
+  "taxaFrete": 10.00,
+  "cozinha": {
+    "id": 1
+  }
+}
