@@ -18,19 +18,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.validation.ConstraintViolationException;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@TestPropertySource("/application-test.properties")
 public class CadastroCozinhaIT {
 
   @LocalServerPort
   private int port;
-
-  @Autowired
-  private Flyway flyway;
 
   @BeforeEach
   public void setUp(){
@@ -38,7 +37,6 @@ public class CadastroCozinhaIT {
     RestAssured.port = port;
     RestAssured.basePath = "/cozinhas";
 
-    flyway.migrate(); // Restaura o banco para um estado inicial
   }
 
   @Test
