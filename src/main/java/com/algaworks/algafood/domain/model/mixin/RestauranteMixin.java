@@ -11,13 +11,13 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RestauranteMixin {
+public abstract class RestauranteMixin {
 
     @JsonIgnoreProperties(value = "nome", allowGetters = true)
     private Cozinha cozinha;
 
     @JsonIgnore
-    private List<FormaPagamento> formaPagamentos = new ArrayList<>();
+    private List<FormaPagamento> formaPagamentos;
 
     @JsonIgnore
     private Endereco endereco;
@@ -29,5 +29,5 @@ public class RestauranteMixin {
     private LocalDateTime dataAtualizacao;
 
     @JsonIgnore
-    private List<Produto> produtos = new ArrayList<>();
+    private List<Produto> produtos;
 }
