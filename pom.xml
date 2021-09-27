@@ -12,6 +12,7 @@
 	<artifactId>algafood-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>algafood-api</name>
+	<packaging>war</packaging>
 	<description>API de delivery de comida</description>
 
 	<properties>
