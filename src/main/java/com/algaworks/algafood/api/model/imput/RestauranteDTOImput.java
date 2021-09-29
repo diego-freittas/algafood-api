@@ -25,5 +25,5 @@ public class RestauranteDTOImput {
 
     @Valid
     @NotNull
-    private CozinhaReferenciaIDImput cozinhaReferenciaIDImput;
+    private CozinhaReferenciaIDImput cozinha;
 }

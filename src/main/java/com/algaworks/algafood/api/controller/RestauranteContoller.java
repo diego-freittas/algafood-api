@@ -160,7 +160,7 @@ public class RestauranteContoller {
         Cozinha cozinha = new Cozinha();
         restaurante.setNome(restauranteDTOImput.getNome());
         restaurante.setTaxaFrete(restauranteDTOImput.getTaxaFrete());
-        cozinha.setId(restauranteDTOImput.getCozinhaReferenciaIDImput().getId());
+        cozinha.setId(restauranteDTOImput.getCozinha().getId());
         restaurante.setCozinha(cozinha);
         return restaurante;
     }
