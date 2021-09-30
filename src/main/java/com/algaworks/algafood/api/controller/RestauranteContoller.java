@@ -2,6 +2,7 @@ package com.algaworks.algafood.api.controller;
 
 
 import com.algaworks.algafood.api.assembler.RestauranteDTOAssembler;
+import com.algaworks.algafood.api.assembler.RestauranteDTOImputDisassembler;
 import com.algaworks.algafood.api.model.CozinhaDTO;
 import com.algaworks.algafood.api.model.RestauranteDTO;
 import com.algaworks.algafood.api.model.imput.RestauranteDTOImput;
@@ -33,6 +34,9 @@ public class RestauranteContoller {
     @Autowired
     private RestauranteDTOAssembler restauranteDTOAssembler;
 
+    @Autowired
+    private RestauranteDTOImputDisassembler restauranteDTOImputDisassembler;
+
 
     //@GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE }) // "produces" serve para :Esta metodo só produz o formato especifico de conteudo
     @GetMapping
@@ -51,7 +55,7 @@ public class RestauranteContoller {
     @ResponseStatus(HttpStatus.CREATED)
     public RestauranteDTO adicionar(@RequestBody @Valid RestauranteDTOImput restauranteDTOImput) {
         try {
-            Restaurante restaurante = toDomainObject(restauranteDTOImput);
+            Restaurante restaurante = restauranteDTOImputDisassembler.toDomainObject(restauranteDTOImput);
             return restauranteDTOAssembler.toDTO(restauranteSevice.salvar(restaurante));
         } catch (CozinhaNaoEncontradaException e) {
             throw new NegocioException(e.getMessage());
@@ -62,7 +66,7 @@ public class RestauranteContoller {
     public RestauranteDTO atualizar(@PathVariable Long restauranteId,
                                  @RequestBody  @Valid RestauranteDTOImput restauranteDTOImput) {
         try {
-            Restaurante restaurante = toDomainObject(restauranteDTOImput);
+            Restaurante restaurante = restauranteDTOImputDisassembler.toDomainObject(restauranteDTOImput);
 
             Restaurante restauranteAtual = restauranteSevice.buscarOuFalhar(restauranteId);
             BeanUtils.copyProperties(restaurante, restauranteAtual,
@@ -127,17 +131,5 @@ public class RestauranteContoller {
 //            throw new HttpMessageNotReadableException(e.getMessage(), rootCause, serverHttpRequest);
 //        }
 //    }
-
-    private Restaurante toDomainObject(RestauranteDTOImput restauranteDTOImput){
-
-        Restaurante restaurante = new Restaurante();
-        restaurante.setNome(restauranteDTOImput.getNome());
-        restaurante.setTaxaFrete(restauranteDTOImput.getTaxaFrete());
-
-        Cozinha cozinha = new Cozinha();
-        cozinha.setId(restauranteDTOImput.getCozinha().getId());
-        restaurante.setCozinha(cozinha);
-        return restaurante;
-    }
 
 }
