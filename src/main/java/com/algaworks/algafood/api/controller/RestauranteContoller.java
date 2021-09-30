@@ -1,6 +1,7 @@
 package com.algaworks.algafood.api.controller;
 
 
+import com.algaworks.algafood.api.assembler.RestauranteDTOAssembler;
 import com.algaworks.algafood.api.model.CozinhaDTO;
 import com.algaworks.algafood.api.model.RestauranteDTO;
 import com.algaworks.algafood.api.model.imput.RestauranteDTOImput;
@@ -29,18 +30,21 @@ public class RestauranteContoller {
     @Autowired
     private SmartValidator validator;
 
+    @Autowired
+    private RestauranteDTOAssembler restauranteDTOAssembler;
+
 
     //@GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE }) // "produces" serve para :Esta metodo só produz o formato especifico de conteudo
     @GetMapping
     public List<RestauranteDTO> listar() {
 
-        return toCollectionDTO(restauranteSevice.findAll());
+        return restauranteDTOAssembler.toCollectionDTO(restauranteSevice.findAll());
     }
 
     @GetMapping("/{id}")
     public RestauranteDTO buscar(@PathVariable Long id) {
         Restaurante restaurante = restauranteSevice.buscarOuFalhar(id);
-        return toDTO(restaurante);
+        return restauranteDTOAssembler.toDTO(restaurante);
     }
 
     @PostMapping
@@ -48,7 +52,7 @@ public class RestauranteContoller {
     public RestauranteDTO adicionar(@RequestBody @Valid RestauranteDTOImput restauranteDTOImput) {
         try {
             Restaurante restaurante = toDomainObject(restauranteDTOImput);
-            return toDTO(restauranteSevice.salvar(restaurante));
+            return restauranteDTOAssembler.toDTO(restauranteSevice.salvar(restaurante));
         } catch (CozinhaNaoEncontradaException e) {
             throw new NegocioException(e.getMessage());
         }
@@ -64,7 +68,7 @@ public class RestauranteContoller {
             BeanUtils.copyProperties(restaurante, restauranteAtual,
                     "id", "formasPagamento", "endereco", "dataCadastro", "produtos");
 
-            return toDTO(restauranteSevice.salvar(restauranteAtual));
+            return restauranteDTOAssembler.toDTO(restauranteSevice.salvar(restauranteAtual));
 
         } catch (CozinhaNaoEncontradaException e) {
             throw new NegocioException(e.getMessage());
@@ -124,24 +128,6 @@ public class RestauranteContoller {
 //        }
 //    }
 
-    private RestauranteDTO toDTO(Restaurante restaurante) {
-        CozinhaDTO cozinhaDTO = new CozinhaDTO();
-        cozinhaDTO.setId(restaurante.getCozinha().getId());
-        cozinhaDTO.setNome(restaurante.getCozinha().getNome());
-
-        RestauranteDTO restauranteDTO = new RestauranteDTO();
-        restauranteDTO.setId(restaurante.getId());
-        restauranteDTO.setNome(restaurante.getNome());
-        restauranteDTO.setTaxaFrete(restaurante.getTaxaFrete());
-        restauranteDTO.setCozinha(cozinhaDTO);
-        return restauranteDTO;
-    }
-
-    private List<RestauranteDTO> toCollectionDTO(List<Restaurante> restaurantes){
-        return restaurantes.stream()
-                .map(restaurante -> toDTO(restaurante))
-                .collect(Collectors.toList());
-    }
     private Restaurante toDomainObject(RestauranteDTOImput restauranteDTOImput){
 
         Restaurante restaurante = new Restaurante();
