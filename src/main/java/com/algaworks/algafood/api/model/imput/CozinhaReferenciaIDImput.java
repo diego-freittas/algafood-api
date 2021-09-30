@@ -11,6 +11,4 @@ public class CozinhaReferenciaIDImput {
 
     @NotNull
     private Long id;
-
-    private String nome;
 }
