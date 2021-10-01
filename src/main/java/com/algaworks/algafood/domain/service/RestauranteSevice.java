@@ -29,7 +29,9 @@ public class RestauranteSevice {
     public Restaurante salvar(Restaurante restaurante) {
         Long cozinhaId = restaurante.getCozinha().getId();
         Cozinha cozinha = cozinhaService.buscarOuFalhar(cozinhaId);
-        return restauranteRepository.save(restaurante);
+        restaurante.setCozinha(cozinha);
+        Restaurante restauranteDeRetorno = restauranteRepository.save(restaurante);
+        return restauranteDeRetorno;
     }
 
     public  List<Restaurante> findAll(){
