@@ -15,4 +15,7 @@ public class RestauranteDTOImputDisassembler {
     public Restaurante toDomainObject(RestauranteDTOImput restauranteDTOImput){
         return modelMapper.map(restauranteDTOImput, Restaurante.class);
     }
+
+    public void copyToDomainObject(RestauranteDTOImput restauranteDTOImput,
+                                   Restaurante restaurante){}
 }
