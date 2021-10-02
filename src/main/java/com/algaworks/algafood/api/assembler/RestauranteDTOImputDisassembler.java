@@ -17,5 +17,13 @@ public class RestauranteDTOImputDisassembler {
     }
 
     public void copyToDomainObject(RestauranteDTOImput restauranteDTOImput,
-                                   Restaurante restaurante){}
+                                   Restaurante restaurante){
+        //Como essa Cozinha não esta sendo gerenciada pelo JPA não ocorre o erro, caso não
+        //criamos uma nova Cozinha o JPA entende que estamos alterando o id de uma cozinha
+        //existente.
+        // identifier of an instance of com.algaworks.algafood.domain.model.Cozinha was altered from 1 to 2
+
+        restaurante.setCozinha(new Cozinha());
+        modelMapper.map(restauranteDTOImput,restaurante);
+    }
 }

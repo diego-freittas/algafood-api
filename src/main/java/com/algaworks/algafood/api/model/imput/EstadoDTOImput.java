@@ -1,7 +1,11 @@
 package com.algaworks.algafood.api.model.imput;
 
-import javax.validation.constraints.NotBlank;
+import lombok.Getter;
+import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
+@Setter
+@Getter
 public class EstadoDTOImput {
 
     @NotBlank
