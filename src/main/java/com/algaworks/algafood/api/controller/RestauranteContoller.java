@@ -62,7 +62,7 @@ public class RestauranteContoller {
         }
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{restauranteId}")
     public RestauranteDTO atualizar(@PathVariable Long restauranteId,
                                  @RequestBody  @Valid RestauranteDTOImput restauranteDTOImput) {
         try {
