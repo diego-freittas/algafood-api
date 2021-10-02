@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,6 +27,7 @@ public class RestauranteSevice {
     @Autowired
     private CozinhaService cozinhaService;
 
+    @Transactional
     public Restaurante salvar(Restaurante restaurante) {
         Long cozinhaId = restaurante.getCozinha().getId();
         Cozinha cozinha = cozinhaService.buscarOuFalhar(cozinhaId);
@@ -41,10 +43,12 @@ public class RestauranteSevice {
     public Optional<Restaurante> findById(Long id) {
         return restauranteRepository.findById(id);
     }
-
+    @Transactional
     public void excluir(Long id) {
         try {
             restauranteRepository.deleteById(id);
+            //Manda o JPA executar as operações de banco que estão na fila
+             restauranteRepository.flush();
         } catch (EmptyResultDataAccessException ex) {
             throw new RestauranteNaoEncontradoException(id);
         } catch (DataIntegrityViolationException ex) {
