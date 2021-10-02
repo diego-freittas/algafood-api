@@ -62,18 +62,21 @@ public class RestauranteContoller {
         }
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{restauranteId}")
     public RestauranteDTO atualizar(@PathVariable Long restauranteId,
                                  @RequestBody  @Valid RestauranteDTOImput restauranteDTOImput) {
         try {
             Restaurante restaurante = restauranteDTOImputDisassembler.toDomainObject(restauranteDTOImput);
 
-            Restaurante restauranteAtual = restauranteSevice.buscarOuFalhar(restauranteId);
-            BeanUtils.copyProperties(restaurante, restauranteAtual,
-                    "id", "formasPagamento", "endereco", "dataCadastro", "produtos");
-
+              Restaurante restauranteAtual = restauranteSevice.buscarOuFalhar(restauranteId);
+            //Copiamos as propriedades dos objetos, não temos o risco de atribuir nada nulo como
+            //ocorria no BeanUtils pq em restauranteDTOImput temos o controle das propriedades
+            // que precisão ser preenchidas, as nulas não estão no DTO.
+              restauranteDTOImputDisassembler.copyToDomainObject(restauranteDTOImput,restauranteAtual);
+            // Como estamos utilizando o ModelMapper não precisamos mais do BeanUtils
+            //BeanUtils.copyProperties(restaurante, restauranteAtual,
+            //"id", "formasPagamento", "endereco", "dataCadastro", "produtos");
             return restauranteDTOAssembler.toDTO(restauranteSevice.salvar(restauranteAtual));
-
         } catch (CozinhaNaoEncontradaException e) {
             throw new NegocioException(e.getMessage());
         }
