@@ -61,4 +61,15 @@ public class RestauranteSevice {
                 .orElseThrow(()->new RestauranteNaoEncontradoException(id));
     }
 
+    @Transactional
+    public void ativar (Long id){
+        Restaurante restauranteAtual = this.buscarOuFalhar(id);
+        restauranteAtual.ativar();
+    }
+    @Transactional
+    public void inativar(Long id){
+        Restaurante restauranteAtual = this.buscarOuFalhar(id);
+        restauranteAtual.inativar();
+    }
+
 }
