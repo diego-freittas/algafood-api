@@ -18,6 +18,7 @@ public class EstadoService {
 
     @Transactional
     public Estado salvar(Estado estado) {
+
         return estadoRepository.save(estado);
     }
     @Transactional
