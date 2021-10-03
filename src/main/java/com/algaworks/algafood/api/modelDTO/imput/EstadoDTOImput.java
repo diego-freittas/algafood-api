@@ -1,15 +1,13 @@
-package com.algaworks.algafood.api.model.imput;
+package com.algaworks.algafood.api.modelDTO.imput;
 
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
-
 @Setter
 @Getter
-public class FormaPagamentoDTOImput {
+public class EstadoDTOImput {
 
     @NotBlank
-    private String descricao;
-
+    private String nome;
 }

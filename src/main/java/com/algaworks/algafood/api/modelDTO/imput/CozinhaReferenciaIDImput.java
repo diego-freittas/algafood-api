@@ -1,4 +1,4 @@
-package com.algaworks.algafood.api.model.imput;
+package com.algaworks.algafood.api.modelDTO.imput;
 
 import lombok.Getter;
 import lombok.Setter;

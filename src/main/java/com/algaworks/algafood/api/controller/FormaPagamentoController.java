@@ -2,10 +2,9 @@ package com.algaworks.algafood.api.controller;
 
 import com.algaworks.algafood.api.assembler.FormaPagamentoDTOAssembler;
 import com.algaworks.algafood.api.assembler.FormaPagamentoDTOImputDisassembler;
-import com.algaworks.algafood.api.model.FormaPagamentoDTO;
-import com.algaworks.algafood.api.model.imput.FormaPagamentoDTOImput;
+import com.algaworks.algafood.api.modelDTO.FormaPagamentoDTO;
+import com.algaworks.algafood.api.modelDTO.imput.FormaPagamentoDTOImput;
 import com.algaworks.algafood.domain.model.FormaPagamento;
-import com.algaworks.algafood.domain.repository.FormaPagamentoRepository;
 import com.algaworks.algafood.domain.service.FormaPagamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
