@@ -1,8 +1,6 @@
 package com.algaworks.algafood.api.assembler;
 
-import com.algaworks.algafood.api.model.CozinhaDTO;
-import com.algaworks.algafood.api.model.RestauranteDTO;
-import com.algaworks.algafood.core.modelmapper.ModelMapperConfig;
+import com.algaworks.algafood.api.modelDTO.RestauranteDTO;
 import com.algaworks.algafood.domain.model.Restaurante;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

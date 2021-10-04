@@ -63,12 +63,12 @@ public class RestauranteContoller {
     }
 
     @PutMapping("/{id}")
-    public RestauranteDTO atualizar(@PathVariable Long id,
+    public RestauranteDTO atualizar(@PathVariable Long restauranteId,
                                  @RequestBody  @Valid RestauranteDTOImput restauranteDTOImput) {
         try {
             Restaurante restaurante = restauranteDTOImputDisassembler.toDomainObject(restauranteDTOImput);
 
-            Restaurante restauranteAtual = restauranteSevice.buscarOuFalhar(id);
+            Restaurante restauranteAtual = restauranteSevice.buscarOuFalhar(restauranteId);
             BeanUtils.copyProperties(restaurante, restauranteAtual,
                     "id", "formasPagamento", "endereco", "dataCadastro", "produtos");
 
