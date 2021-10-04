@@ -33,9 +33,12 @@ public class RestauranteSevice {
 
     @Transactional
     public Restaurante salvar(Restaurante restaurante) {
+
         Long cozinhaId = restaurante.getCozinha().getId();
         Cozinha cozinha = cozinhaService.buscarOuFalhar(cozinhaId);
+
         Cidade cidade = cidadeService.buscarOuFalhar(restaurante.getEndereco().getCidade().getId());
+
         restaurante.setCozinha(cozinha);
         restaurante.getEndereco().setCidade(cidade);
         Restaurante restauranteDeRetorno = restauranteRepository.save(restaurante);

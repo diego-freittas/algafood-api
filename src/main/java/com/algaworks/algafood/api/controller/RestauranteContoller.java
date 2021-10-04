@@ -3,12 +3,10 @@ package com.algaworks.algafood.api.controller;
 
 import com.algaworks.algafood.api.assembler.RestauranteDTOAssembler;
 import com.algaworks.algafood.api.assembler.RestauranteDTOImputDisassembler;
-import com.algaworks.algafood.api.model.CozinhaDTO;
-import com.algaworks.algafood.api.model.RestauranteDTO;
-import com.algaworks.algafood.api.model.imput.RestauranteDTOImput;
+import com.algaworks.algafood.api.modelDTO.RestauranteDTO;
+import com.algaworks.algafood.api.modelDTO.imput.RestauranteDTOImput;
 import com.algaworks.algafood.domain.exception.CozinhaNaoEncontradaException;
 import com.algaworks.algafood.domain.exception.NegocioException;
-import com.algaworks.algafood.domain.model.Cozinha;
 import com.algaworks.algafood.domain.model.Restaurante;
 import com.algaworks.algafood.domain.service.RestauranteSevice;
 import org.springframework.beans.BeanUtils;
@@ -19,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/restaurantes")
