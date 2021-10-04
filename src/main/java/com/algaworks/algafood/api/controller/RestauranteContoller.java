@@ -5,6 +5,7 @@ import com.algaworks.algafood.api.assembler.RestauranteDTOAssembler;
 import com.algaworks.algafood.api.assembler.RestauranteDTOImputDisassembler;
 import com.algaworks.algafood.api.modelDTO.RestauranteDTO;
 import com.algaworks.algafood.api.modelDTO.imput.RestauranteDTOImput;
+import com.algaworks.algafood.domain.exception.CidadeNaoEncontradaException;
 import com.algaworks.algafood.domain.exception.CozinhaNaoEncontradaException;
 import com.algaworks.algafood.domain.exception.NegocioException;
 import com.algaworks.algafood.domain.model.Restaurante;
@@ -53,7 +54,7 @@ public class RestauranteContoller {
         try {
             Restaurante restaurante = restauranteDTOImputDisassembler.toDomainObject(restauranteDTOImput);
             return restauranteDTOAssembler.toDTO(restauranteSevice.salvar(restaurante));
-        } catch (CozinhaNaoEncontradaException e) {
+        } catch (CozinhaNaoEncontradaException | CidadeNaoEncontradaException e) {
             throw new NegocioException(e.getMessage());
         }
     }
@@ -73,7 +74,7 @@ public class RestauranteContoller {
             //BeanUtils.copyProperties(restaurante, restauranteAtual,
             //"id", "formasPagamento", "endereco", "dataCadastro", "produtos");
             return restauranteDTOAssembler.toDTO(restauranteSevice.salvar(restauranteAtual));
-        } catch (CozinhaNaoEncontradaException e) {
+        } catch (CozinhaNaoEncontradaException | CidadeNaoEncontradaException e) {
             throw new NegocioException(e.getMessage());
         }
     }

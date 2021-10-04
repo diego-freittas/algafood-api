@@ -24,5 +24,11 @@ public class RestauranteDTOImput {
     @NotNull
     private CozinhaReferenciaIDImput cozinha;
 
+    private boolean ativo;
+
+    @Valid
+    @NotNull
+    private EnderecoDTOImput endereco;
+
 }
 
