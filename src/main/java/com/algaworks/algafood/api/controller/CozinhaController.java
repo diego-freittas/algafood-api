@@ -2,8 +2,8 @@ package com.algaworks.algafood.api.controller;
 
 import com.algaworks.algafood.api.assembler.CozinhaDTOAssembler;
 import com.algaworks.algafood.api.assembler.CozinhaDTOImputDisassembler;
-import com.algaworks.algafood.api.model.CozinhaDTO;
-import com.algaworks.algafood.api.model.imput.CozinhaDTOImput;
+import com.algaworks.algafood.api.modelDTO.CozinhaDTO;
+import com.algaworks.algafood.api.modelDTO.imput.CozinhaDTOImput;
 import com.algaworks.algafood.domain.model.Cozinha;
 import com.algaworks.algafood.domain.service.CozinhaService;
 import org.springframework.beans.factory.annotation.Autowired;

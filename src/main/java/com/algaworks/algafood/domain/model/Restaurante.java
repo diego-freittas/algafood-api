@@ -43,6 +43,8 @@ public class Restaurante {
     @Embedded
     private Endereco endereco;
 
+    private boolean ativo = Boolean.TRUE;
+
     @ManyToMany
     @JoinTable(name = "restaurante_forma_pagamento",
     joinColumns = @JoinColumn(name = "restaurante_id"),
@@ -59,4 +61,11 @@ public class Restaurante {
 
     @OneToMany(mappedBy = "restaurante")
     private List<Produto> produtos = new ArrayList<>();
+
+    public void ativar(){
+        this.setAtivo(true);
+    }
+    public void inativar(){
+        this.setAtivo(false);
+    }
 }

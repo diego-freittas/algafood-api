@@ -1,4 +1,4 @@
-package com.algaworks.algafood.api.model;
+package com.algaworks.algafood.api.modelDTO;
 
 import com.algaworks.algafood.domain.model.Estado;
 import lombok.Getter;

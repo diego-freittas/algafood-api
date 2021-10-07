@@ -4,11 +4,10 @@ import java.util.List;
 
 import com.algaworks.algafood.api.assembler.CidadeDTOAssembler;
 import com.algaworks.algafood.api.assembler.CidadeDTOImputDisassembler;
-import com.algaworks.algafood.api.model.CidadeDTO;
-import com.algaworks.algafood.api.model.imput.CidadeDTOImput;
+import com.algaworks.algafood.api.modelDTO.CidadeDTO;
+import com.algaworks.algafood.api.modelDTO.imput.CidadeDTOImput;
 import com.algaworks.algafood.domain.exception.EstadoNaoEncontradoException;
 import com.algaworks.algafood.domain.exception.NegocioException;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

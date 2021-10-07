@@ -1,4 +1,4 @@
-package com.algaworks.algafood.api.model.imput;
+package com.algaworks.algafood.api.modelDTO.imput;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -23,6 +23,12 @@ public class RestauranteDTOImput {
     @Valid
     @NotNull
     private CozinhaReferenciaIDImput cozinha;
+
+    private boolean ativo;
+
+    @Valid
+    @NotNull
+    private EnderecoDTOImput endereco;
 
 }
 

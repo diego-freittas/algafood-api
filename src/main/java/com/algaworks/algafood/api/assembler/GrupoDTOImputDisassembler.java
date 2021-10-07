@@ -1,24 +1,25 @@
 package com.algaworks.algafood.api.assembler;
 
 import com.algaworks.algafood.api.modelDTO.imput.CidadeDTOImput;
+import com.algaworks.algafood.api.modelDTO.imput.GrupoDTOImput;
 import com.algaworks.algafood.domain.model.Cidade;
 import com.algaworks.algafood.domain.model.Estado;
+import com.algaworks.algafood.domain.model.Grupo;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CidadeDTOImputDisassembler {
+public class GrupoDTOImputDisassembler {
     @Autowired
     private ModelMapper modelMapper;
 
-    public Cidade toDomainObject(CidadeDTOImput cidadeDTOImput){
-        return modelMapper.map(cidadeDTOImput, Cidade.class);
+    public Grupo toDomainObject(GrupoDTOImput grupoDTOImput){
+        return modelMapper.map(grupoDTOImput, Grupo.class);
     }
 
-    public void copyToDomainObject(CidadeDTOImput cidadeDTOImput,
-                                   Cidade cidade){
-        cidade.setEstado(new Estado());
-        modelMapper.map(cidadeDTOImput,cidade);
+    public void copyToDomainObject(GrupoDTOImput grupoDTOImput,
+                                   Grupo grupo){
+        modelMapper.map(grupoDTOImput,grupo);
     }
 }

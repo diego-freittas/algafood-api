@@ -1,4 +1,4 @@
-package com.algaworks.algafood.api.model;
+package com.algaworks.algafood.api.modelDTO;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,6 +11,8 @@ public class RestauranteDTO {
     private Long id;
     private String nome;
     private BigDecimal taxaFrete;
+    private Boolean ativo;
     private CozinhaDTO cozinha;
+    private EnderecoDTO endereco;
 
 }
