@@ -4,6 +4,7 @@ import com.algaworks.algafood.api.assembler.UsuarioDTOAssembler;
 import com.algaworks.algafood.api.assembler.UsuarioDTOImputDisassembler;
 import com.algaworks.algafood.api.modelDTO.UsuarioCadastroDTO;
 import com.algaworks.algafood.api.modelDTO.UsuarioSemSenhaDTO;
+import com.algaworks.algafood.api.modelDTO.imput.SenhaInput;
 import com.algaworks.algafood.api.modelDTO.imput.UsuarioCadastroDTOImput;
 import com.algaworks.algafood.domain.exception.NegocioException;
 import com.algaworks.algafood.domain.exception.UsuarioNaoEncontradoException;
@@ -65,6 +66,12 @@ public class UsuarioController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void remover(@PathVariable Long id) {
         usuarioService.excluir(id);
+    }
+
+    @PutMapping("/{id}/senha")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void alterarSenha(@PathVariable Long id, @RequestBody @Valid SenhaInput senha){
+        usuarioService.alterarSenha(id,senha.getSenhaAtual(),senha.getNovaSenha());
     }
 
 

@@ -8,11 +8,8 @@ import javax.validation.constraints.NotBlank;
 
 @Getter
 @Setter
-public class UsuarioCadastroDTOImput {
+public class UsuarioCadastroSenhaDTOImput extends UsuarioCadastroDTOImput{
 
     @NotBlank
-    private String nome;
-    @Email
-    private String email;
-
+    private String senha;
 }

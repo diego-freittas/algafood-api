@@ -2,6 +2,7 @@ package com.algaworks.algafood.domain.service;
 
 import com.algaworks.algafood.domain.exception.CidadeNaoEncontradaException;
 import com.algaworks.algafood.domain.exception.EntidadeEmUsoException;
+import com.algaworks.algafood.domain.exception.NegocioException;
 import com.algaworks.algafood.domain.exception.UsuarioNaoEncontradoException;
 import com.algaworks.algafood.domain.model.Cidade;
 import com.algaworks.algafood.domain.model.Estado;
@@ -50,5 +51,13 @@ public class UsuarioService {
     public Usuario buscarOuFalhar(Long id) {
         return usuarioRepository.findById(id)
                 .orElseThrow(()-> new UsuarioNaoEncontradoException(id));
+    }
+    @Transactional
+    public void alterarSenha(Long id, String senhaAtual, String novaSenha){
+        Usuario usuario = buscarOuFalhar(id);
+        if (usuario.senhaNaoCoincideCom(senhaAtual)){
+            throw new NegocioException("Verifique a senha informada e tente novamento:");
+        }
+        usuario.setSenha(novaSenha);
     }
 }
