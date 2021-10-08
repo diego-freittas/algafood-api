@@ -6,6 +6,7 @@ import com.algaworks.algafood.api.modelDTO.UsuarioCadastroDTO;
 import com.algaworks.algafood.api.modelDTO.UsuarioSemSenhaDTO;
 import com.algaworks.algafood.api.modelDTO.imput.SenhaInput;
 import com.algaworks.algafood.api.modelDTO.imput.UsuarioCadastroDTOImput;
+import com.algaworks.algafood.api.modelDTO.imput.UsuarioCadastroSenhaDTOImput;
 import com.algaworks.algafood.domain.exception.NegocioException;
 import com.algaworks.algafood.domain.exception.UsuarioNaoEncontradoException;
 import com.algaworks.algafood.domain.model.Usuario;
@@ -44,19 +45,19 @@ public class UsuarioController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public UsuarioSemSenhaDTO adicionar(@RequestBody @Valid UsuarioCadastroDTOImput usuarioCadastroDTOImput) {
+    public UsuarioSemSenhaDTO adicionar(@RequestBody @Valid UsuarioCadastroSenhaDTOImput usuarioCadastroDTOImput) {
 
         Usuario usuario = usuarioDTOImputDisassembler.toDomainObject(usuarioCadastroDTOImput);
         return usuarioDTOAssembler.toUsuarioSemSenhaDTO(usuarioService.salvar(usuario));
     }
 
     @PutMapping("/{id}")
-    public UsuarioCadastroDTO atualizar(@PathVariable Long id, @RequestBody @Valid UsuarioCadastroDTOImput usuarioCadastroDTOImput) {
+    public UsuarioSemSenhaDTO atualizar(@PathVariable Long id, @RequestBody @Valid UsuarioCadastroDTOImput usuarioCadastroDTOImput) {
 
         Usuario usuarioAtual = usuarioService.buscarOuFalhar(id);
         usuarioDTOImputDisassembler.copyToDomainObject(usuarioCadastroDTOImput,usuarioAtual);
         try {
-            return usuarioDTOAssembler.toUsuarioCadastroDTO(usuarioService.salvar(usuarioAtual));
+            return usuarioDTOAssembler.toUsuarioSemSenhaDTO(usuarioService.salvar(usuarioAtual));
         } catch (UsuarioNaoEncontradoException e) {
             throw new NegocioException(e.getMessage(), e);
         }

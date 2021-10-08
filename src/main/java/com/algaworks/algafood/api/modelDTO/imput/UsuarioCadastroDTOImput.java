@@ -10,9 +10,11 @@ import javax.validation.constraints.NotBlank;
 @Setter
 public class UsuarioCadastroDTOImput {
 
+
     @NotBlank
     private String nome;
+
+    @NotBlank
     @Email
     private String email;
-
 }
