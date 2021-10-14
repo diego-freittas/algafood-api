@@ -30,4 +30,12 @@ public class Produto {
     @ManyToOne
     @JoinColumn(nullable = false)
     private Restaurante restaurante;
+
+    public void ativar(){
+        this.setAtivo(true);
+    }
+
+    public void inativar(){
+        this.setAtivo(false);
+    }
 }

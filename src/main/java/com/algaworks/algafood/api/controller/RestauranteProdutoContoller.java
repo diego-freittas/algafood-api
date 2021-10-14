@@ -1,8 +1,9 @@
 package com.algaworks.algafood.api.controller;
 
 
-import com.algaworks.algafood.api.assembler.FormaPagamentoDTOAssembler;
-import com.algaworks.algafood.api.modelDTO.FormaPagamentoDTO;
+import com.algaworks.algafood.api.assembler.ProdutoDTOAssembler;
+import com.algaworks.algafood.api.assembler.ProdutoDTOImputDisassembler;
+import com.algaworks.algafood.api.modelDTO.ProdutoDTO;
 import com.algaworks.algafood.domain.model.Restaurante;
 import com.algaworks.algafood.domain.service.RestauranteSevice;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,29 +16,31 @@ import java.util.List;
 @RequestMapping(value = "/restaurantes/{restauranteId}/produtos")
 public class RestauranteProdutoContoller {
 
-//
-//    @Autowired
-//    private FormaPagamentoDTOAssembler formaPagamentoDTOAssembler;
-//
-//    @Autowired
-//    private RestauranteSevice restauranteSevice;
-//
-//    @GetMapping
-//    public List<FormaPagamentoDTO> listar( @PathVariable Long restauranteId) {
-//        Restaurante restaurante = restauranteSevice.buscarOuFalhar(restauranteId);
-//        return formaPagamentoDTOAssembler.toCollectionDTO(restaurante.getFormaPagamentos());
-//    }
+    @Autowired
+    private ProdutoDTOAssembler produtoDTOAssembler;
 
-//    @DeleteMapping("/{produtoId}")
-//    @ResponseStatus(HttpStatus.NO_CONTENT)
-//    public void desassociarFormaPagamento(@PathVariable Long restauranteId, @PathVariable Long produtoId){
-//        restauranteSevice.desassociarFormaPagamento(restauranteId,produtoId);
-//    }
-//
-//    @PutMapping("/{produtoId}")
-//    @ResponseStatus(HttpStatus.NO_CONTENT)
-//    public void associar(@PathVariable Long restauranteId, @PathVariable Long produtoId) {
-//        restauranteSevice.associarFormaPagamento(restauranteId, produtoId);
-//    }
+    @Autowired
+    private ProdutoDTOImputDisassembler produtoDTOImputDisassembler;
+
+    @Autowired
+    private RestauranteSevice restauranteSevice;
+
+    @GetMapping
+    public List<ProdutoDTO> listar (@PathVariable Long restauranteId){
+        Restaurante restaurante = restauranteSevice.buscarOuFalhar(restauranteId);
+        return produtoDTOAssembler.toCollectionDTO(restaurante.getProdutos());
+    }
+    @DeleteMapping("/{produtoId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void desassociarProduto(@PathVariable Long restauranteId, @PathVariable Long produtoId){
+        restauranteSevice.desassociarProduto(restauranteId,produtoId);
+    }
+
+    @PutMapping("/{produtoId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void associarProduto(@PathVariable Long restauranteId, @PathVariable Long produtoId){
+        restauranteSevice.associarProduto(restauranteId,produtoId);
+    }
+
 
 }

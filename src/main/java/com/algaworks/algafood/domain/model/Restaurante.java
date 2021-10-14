@@ -61,8 +61,9 @@ public class Restaurante {
     @Column(nullable = false)
     private OffsetDateTime dataAtualizacao;
 
+
     @OneToMany(mappedBy = "restaurante")
-    private List<Produto> produtos = new ArrayList<>();
+    private Set<Produto> produtos = new HashSet<>();
 
     public void ativar(){
         this.setAtivo(true);
@@ -78,4 +79,17 @@ public class Restaurante {
     public void removerFormaPagamento(FormaPagamento formaPagamento){
         getFormaPagamentos().remove(formaPagamento);
     }
+
+    public void adicionarProduto(Produto produto){
+        getProdutos().add(produto);
+    }
+
+    public void removerProduto(Produto produto){
+        System.out.println("Antes" + this.getProdutos().size());
+        boolean isRemovido = getProdutos().remove(produto);
+        System.out.println("Depois" + this.getProdutos().size());
+        System.out.println(produto.getId());
+        System.out.println(isRemovido);
+    }
+
 }

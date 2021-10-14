@@ -47,7 +47,7 @@ public class RestauranteFormaPagamentoContoller {
 
     @PutMapping("/{formaPagamentoId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void associar(@PathVariable Long restauranteId, @PathVariable Long formaPagamentoId) {
+    public void associarFormaPagamento(@PathVariable Long restauranteId, @PathVariable Long formaPagamentoId) {
         restauranteSevice.associarFormaPagamento(restauranteId, formaPagamentoId);
     }
 
