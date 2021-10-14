@@ -100,12 +100,9 @@ public class RestauranteSevice {
     }
 
     @Transactional
-    public void desassociarProduto(Long restauranteId, Long produtoId){
+    public void deletarUmProduto(Long restauranteId, Long produtoId){
         Restaurante restaurante = buscarOuFalhar(restauranteId);
-        Produto produto = produtoService.buscarOuFalhar(produtoId);
-        restaurante.removerProduto(produto);
-        produtoService.excluir(produtoId);
-//        restauranteRepository.save(restaurante);
+        Produto produto = produtoService.deletarUmProdutoDeFormaLogica(produtoId);
     }
     @Transactional
     public void associarProduto(Long restauranteId, Long produtoId){

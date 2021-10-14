@@ -47,4 +47,10 @@ public class ProdutoService {
                     String.format(MSG_PRODUTO_EM_USO, id));
         }
     }
+    public Produto deletarUmProdutoDeFormaLogica(Long id){
+        Produto produto = this.buscarOuFalhar(id);
+        produto.inativar();
+        return produto;
+    }
 }
+
