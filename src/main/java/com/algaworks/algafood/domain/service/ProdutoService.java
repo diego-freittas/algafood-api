@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProdutoService {
@@ -21,10 +22,9 @@ public class ProdutoService {
     @Autowired
     private ProdutoRepository produtoRepository;
 
-    public Produto buscarOuFalhar(Long produtoId) {
-
-            return produtoRepository.findById(produtoId)
-                    .orElseThrow(()-> new ProdutoNaoEncontradoException(produtoId));
+    public Produto buscarOuFalhar(Long restaturanteID,Long produtoId) {
+            return (Produto) produtoRepository.findById(restaturanteID,produtoId)
+                    .orElseThrow(()-> new ProdutoNaoEncontradoException(restaturanteID,produtoId));
     }
 
     public Produto salvar(Produto produto){
@@ -37,18 +37,19 @@ public class ProdutoService {
 
     @Transactional
     public void excluir (Long id){
+        Optional<Produto> produto = produtoRepository.findById(id);
         try {
             produtoRepository.deleteById(id);
             produtoRepository.flush();
         }catch (EmptyResultDataAccessException e){
-            throw new ProdutoNaoEncontradoException(id);
+            throw new ProdutoNaoEncontradoException(produto.get().getRestaurante().getId(),id);
         }catch (DataIntegrityViolationException e ){
             throw new EntidadeEmUsoException(
                     String.format(MSG_PRODUTO_EM_USO, id));
         }
     }
-    public Produto deletarUmProdutoDeFormaLogica(Long id){
-        Produto produto = this.buscarOuFalhar(id);
+    public Produto deletarUmProdutoDeFormaLogica(Long restaturanteID,Long produtoId){
+        Produto produto = this.buscarOuFalhar(restaturanteID,produtoId);
         produto.inativar();
         return produto;
     }

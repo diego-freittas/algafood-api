@@ -37,6 +37,13 @@ public class RestauranteProdutoContoller {
         Restaurante restaurante = restauranteSevice.buscarOuFalhar(restauranteId);
         return produtoDTOAssembler.toCollectionDTO(restaurante.getProdutos());
     }
+
+    @GetMapping("/{produtoId}")
+    public ProdutoDTO buscarPorID (@PathVariable Long restauranteId,@PathVariable Long produtoId){
+
+        return produtoDTOAssembler.toDTO(produtoService.buscarOuFalhar(restauranteId,produtoId));
+
+    }
     @DeleteMapping("/{produtoId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletarProduto(@PathVariable Long restauranteId, @PathVariable Long produtoId){
@@ -57,7 +64,7 @@ public class RestauranteProdutoContoller {
     @PutMapping("/{produtoId}")
     public ProdutoDTO atualizar(@PathVariable Long restauranteId, @PathVariable Long produtoId,
                                   @RequestBody @Valid ProdutoDTOImput produtoInput) {
-        Produto produtoAtual = produtoService.buscarOuFalhar(produtoId);
+        Produto produtoAtual = produtoService.buscarOuFalhar(restauranteId,produtoId);
         produtoDTOImputDisassembler.copyToDomainObject(produtoInput, produtoAtual);
         produtoAtual = produtoService.salvar(produtoAtual);
         return produtoDTOAssembler.toDTO(produtoAtual);
