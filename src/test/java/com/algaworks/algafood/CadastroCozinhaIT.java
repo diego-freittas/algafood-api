@@ -3,6 +3,7 @@ package com.algaworks.algafood;
 
 import com.algaworks.algafood.domain.model.Cozinha;
 import com.algaworks.algafood.domain.repository.CozinhaRepository;
+import com.algaworks.algafood.domain.service.CozinhaService;
 import com.algaworks.algafood.util.DatabaseCleaner;
 import com.algaworks.algafood.util.ResourceUtils;
 import io.restassured.RestAssured;
@@ -35,7 +36,7 @@ public class CadastroCozinhaIT {
   private DatabaseCleaner databaseCleaner;
 
   @Autowired
-  private CozinhaRepository cozinhaRepository;
+  private CozinhaService cozinhaService;
 
   @BeforeEach
   public void setUp(){
@@ -117,14 +118,14 @@ public class CadastroCozinhaIT {
 
     Cozinha cozinha1 = new Cozinha();
     cozinha1.setNome("Tailandesa");
-    cozinhaRepository.save(cozinha1);
+    cozinhaService.salvar(cozinha1);
 
     cozinhaAmericana = new Cozinha();
     cozinhaAmericana.setNome("Americana");
-    cozinhaRepository.save(cozinhaAmericana);
+    cozinhaService.salvar(cozinhaAmericana);
 
     //Conta a quantidade de registros no banco de dados e armazenará o valor na variável quantidadeDeCozinhas
-    quantidadeDeCozinhas = (int) cozinhaRepository.count();
+    quantidadeDeCozinhas = (int) cozinhaService.count();
   }
 
 }

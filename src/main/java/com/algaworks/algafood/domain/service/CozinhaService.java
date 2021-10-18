@@ -53,4 +53,8 @@ public class CozinhaService {
         return cozinhaRepository.findById(id)
                 .orElseThrow(()-> new CozinhaNaoEncontradaException(id));
     }
+
+    public long count(){
+        return cozinhaRepository.count();
+    }
 }
