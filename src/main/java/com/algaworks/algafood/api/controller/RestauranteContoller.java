@@ -76,59 +76,21 @@ public class RestauranteContoller {
         }
     }
 
-//    @PatchMapping("/{id}")
-//    public RestauranteDTO atualizarParcial(@PathVariable Long restauranteId,
-//                                        @RequestBody Map<String, Object> campos, HttpServletRequest request) {
-//        Restaurante restauranteDoBancoDeDados = restauranteSevice.buscarOuFalhar(restauranteId);
-//        merge(campos, restauranteDoBancoDeDados, request);
-//        validate(restauranteDoBancoDeDados, "restaurante");
-//        RestauranteDTOImput restauranteDTOImput = new RestauranteDTOImput();
-//        restauranteDTOImput.setNome();
-//
-//        return atualizar(restauranteId, restauranteDTO);
-//
-//    }
-
-//    private void validate(Restaurante restaurante, String objectName) {
-//        BeanPropertyBindingResult bindingResult = new BeanPropertyBindingResult(restaurante, objectName);
-//        validator.validate(restaurante, bindingResult);
-//
-//        if (bindingResult.hasErrors()) {
-//            throw new ValidacaoException(bindingResult);
-//        }
-//    }
-
     @DeleteMapping("/{id}")
     public void remover(@PathVariable Long id) {
-
         restauranteSevice.excluir(id);
     }
 
-//    private void merge(Map<String, Object> dadosOrigem, Restaurante restauranteDestino,
-//                       HttpServletRequest request) {
-//        ServletServerHttpRequest serverHttpRequest = new ServletServerHttpRequest(request);
-//
-//        try {
-//            ObjectMapper objectMapper = new ObjectMapper();
-//            objectMapper.configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, true);
-//            objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true);
-//
-//            Restaurante restauranteOrigem = objectMapper.convertValue(dadosOrigem, Restaurante.class);
-//
-//            dadosOrigem.forEach((nomePropriedade, valorPropriedade) -> {
-//                Field field = ReflectionUtils.findField(Restaurante.class, nomePropriedade);
-//                field.setAccessible(true);
-//
-//                Object novoValor = ReflectionUtils.getField(field, restauranteOrigem);
-//
-//                ReflectionUtils.setField(field, restauranteDestino, novoValor);
-//            });
-//        } catch (IllegalArgumentException e) {
-//            Throwable rootCause = ExceptionUtils.getRootCause(e);
-//            throw new HttpMessageNotReadableException(e.getMessage(), rootCause, serverHttpRequest);
-//        }
-//    }
+    @PutMapping("/{id}/fechamento")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void fechamento(@PathVariable Long id){
+        restauranteSevice.fechar(id);
+    }
 
-
+    @PutMapping("/{id}/abertura")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void abertura(@PathVariable Long id){
+        restauranteSevice.abrir(id);
+    }
 
 }

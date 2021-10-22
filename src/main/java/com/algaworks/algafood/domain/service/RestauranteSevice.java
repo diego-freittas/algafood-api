@@ -49,19 +49,20 @@ public class RestauranteSevice {
         return restauranteDeRetorno;
     }
 
-    public  List<Restaurante> findAll(){
-      return   restauranteRepository.findAll();
+    public List<Restaurante> findAll() {
+        return restauranteRepository.findAll();
     }
 
     public Optional<Restaurante> findById(Long id) {
         return restauranteRepository.findById(id);
     }
+
     @Transactional
     public void excluir(Long id) {
         try {
             restauranteRepository.deleteById(id);
             //Manda o JPA executar as operações de banco que estão na fila
-             restauranteRepository.flush();
+            restauranteRepository.flush();
         } catch (EmptyResultDataAccessException ex) {
             throw new RestauranteNaoEncontradoException(id);
         } catch (DataIntegrityViolationException ex) {
@@ -69,18 +70,19 @@ public class RestauranteSevice {
         }
     }
 
-    public Restaurante buscarOuFalhar(Long id){
-        return  restauranteRepository.findById(id)
-                .orElseThrow(()->new RestauranteNaoEncontradoException(id));
+    public Restaurante buscarOuFalhar(Long id) {
+        return restauranteRepository.findById(id)
+                .orElseThrow(() -> new RestauranteNaoEncontradoException(id));
     }
 
     @Transactional
-    public void ativar (Long id){
+    public void ativar(Long id) {
         Restaurante restauranteAtual = this.buscarOuFalhar(id);
         restauranteAtual.ativar();
     }
+
     @Transactional
-    public void inativar(Long id){
+    public void inativar(Long id) {
         Restaurante restauranteAtual = this.buscarOuFalhar(id);
         restauranteAtual.inativar();
     }
@@ -100,15 +102,28 @@ public class RestauranteSevice {
     }
 
     @Transactional
-    public void deletarUmProduto(Long restauranteId, Long produtoId){
+    public void deletarUmProduto(Long restauranteId, Long produtoId) {
         Restaurante restaurante = buscarOuFalhar(restauranteId);
-        Produto produto = produtoService.deletarUmProdutoDeFormaLogica(restauranteId,produtoId);
+        Produto produto = produtoService.deletarUmProdutoDeFormaLogica(restauranteId, produtoId);
     }
+
     @Transactional
-    public void associarProduto(Long restauranteId, Long produtoId){
+    public void associarProduto(Long restauranteId, Long produtoId) {
         Restaurante restaurante = this.buscarOuFalhar(restauranteId);
-        Produto produto = produtoService.buscarOuFalhar(restauranteId,produtoId);
+        Produto produto = produtoService.buscarOuFalhar(restauranteId, produtoId);
         restaurante.adicionarProduto(produto);
+    }
+
+    @Transactional
+    public void fechar(Long id) {
+        Restaurante restauranteAtual = this.buscarOuFalhar(id);
+        restauranteAtual.fechar();
+    }
+
+    @Transactional
+    public void abrir(Long id) {
+        Restaurante restauranteAtual = this.buscarOuFalhar(id);
+        restauranteAtual.abrir();
     }
 
 }

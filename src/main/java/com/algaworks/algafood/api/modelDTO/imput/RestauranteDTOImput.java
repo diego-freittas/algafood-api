@@ -26,6 +26,8 @@ public class RestauranteDTOImput {
 
     private boolean ativo;
 
+    private boolean aberto;
+
     @Valid
     @NotNull
     private EnderecoDTOImput endereco;
