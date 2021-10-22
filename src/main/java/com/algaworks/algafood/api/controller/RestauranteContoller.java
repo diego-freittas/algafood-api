@@ -76,6 +76,17 @@ public class RestauranteContoller {
         }
     }
 
+    @DeleteMapping("/{id}/ativo")
+    public void ativar(@PathVariable Long id) {
+        restauranteSevice.inativar(id);
+    }
+
+    @PutMapping("/{id}/ativo")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void inativar(@PathVariable Long id){
+        restauranteSevice.ativar(id);
+    }
+
     @DeleteMapping("/{id}")
     public void remover(@PathVariable Long id) {
         restauranteSevice.excluir(id);
